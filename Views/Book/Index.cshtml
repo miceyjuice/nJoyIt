@@ -1,0 +1,45 @@
+﻿@model IEnumerable<nJoyIt.Models.Book>
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+<div class="container">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Books list</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a class="btn btn-primary" asp-controller="Book" asp-action="Create">Add new book</a>
+        </div>
+
+        @if (Model.Count() > 0)
+        {
+            <div class="col-12">
+                <ul class="books-list">
+                    @foreach (var item in Model)
+                    {
+                        <li class="book">
+                            <a asp-route="">
+                                <span class="book-label">Title</span>
+                                <span class="book-info">@item.Title</span>
+                            </a>
+                            <div>
+                                <span class="book-label">Author</span>
+                                <span class="book-info">@item.Author</span>
+                            </div>
+                            <div>
+                                <span class="book-label">Genre</span>
+                                <span class="book-info">@item.Genre</span>
+                            </div>
+                            <div>
+                                <span class="book-label">Publication year</span>
+                                <span class="book-info">@item.PublicationYear</span>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+</div>
