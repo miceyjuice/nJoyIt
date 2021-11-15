@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using nJoyIt.Data;
 using nJoyIt.Models;
+using nJoyIt.ViewModels;
 
 namespace nJoyIt.Controllers
 {
@@ -32,6 +33,13 @@ namespace nJoyIt.Controllers
             _db.Books.Add(obj);
             _db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        public IActionResult Info(int id)
+        {
+            BookDetailsViewModel model = new BookDetailsViewModel();
+            model.Book = _db.Books.Where(b => b.Id == id).ToList()[0];
+            model.Review = _db.Reviews.Where(r => r.Book.Id == model.Book.Id).ToList();
+            return View(model);
         }
     }
 }

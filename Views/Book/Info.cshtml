@@ -1,0 +1,39 @@
+﻿@model nJoyIt.ViewModels.BookDetailsViewModel
+
+@{
+    ViewData["Title"] = "Info";
+}
+
+    <div>
+        <div class="d-flex book-box-container">
+            <div class="book-box-img">
+                <div class="img"></div>
+            </div>
+            <div class="book-box-info">
+                <h1>
+                    @Model.Book.Title
+                </h1>
+                <div>
+                    <span>Author</span>
+                    <span>@Model.Book.Author</span>
+                </div>
+                <div>
+                    <span>Genre</span>
+                    <span>@Model.Book.Genre</span>
+                </div>
+                <div>
+                    <span>Publication year</span>
+                    <span>@Model.Book.PublicationYear</span>
+                </div>
+                <div>
+                    <span class="sub-title">Description</span>
+                    <p>
+                        The book was released in the United States under the name Harry Potter and the Sorcerer's Stone 
+                        because the publishers were concerned that most American readers would not be familiar enough with 
+                        the term "Philosopher's Stone". However, this decision led to criticism by the British public who felt it 
+                        shouldn't be changed due to the fact it was an English book.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>

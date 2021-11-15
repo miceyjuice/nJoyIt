@@ -20,22 +20,26 @@
                     @foreach (var item in Model)
                     {
                         <li class="book">
-                            <a asp-route="">
-                                <span class="book-label">Title</span>
-                                <span class="book-info">@item.Title</span>
+                            <a asp-action="Info" asp-route-id="@item.Id">
+                                <div>
+                                    <div>
+                                        <span class="book-label">Title</span>
+                                        <span class="book-info">@item.Title</span>
+                                    </div>
+                                    <div>
+                                        <span class="book-label">Author</span>
+                                        <span class="book-info">@item.Author</span>
+                                    </div>
+                                    <div>
+                                        <span class="book-label">Genre</span>
+                                        <span class="book-info">@item.Genre</span>
+                                    </div>
+                                    <div>
+                                        <span class="book-label">Publication year</span>
+                                        <span class="book-info">@item.PublicationYear</span>
+                                    </div>
+                                </div>
                             </a>
-                            <div>
-                                <span class="book-label">Author</span>
-                                <span class="book-info">@item.Author</span>
-                            </div>
-                            <div>
-                                <span class="book-label">Genre</span>
-                                <span class="book-info">@item.Genre</span>
-                            </div>
-                            <div>
-                                <span class="book-label">Publication year</span>
-                                <span class="book-info">@item.PublicationYear</span>
-                            </div>
                         </li>
                     }
                 </ul>
