@@ -16,7 +16,8 @@ namespace nJoyIt.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Author = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Genre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PublicationYear = table.Column<long>(type: "bigint", nullable: false)
+                    PublicationYear = table.Column<long>(type: "bigint", nullable: false),
+                    BookImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

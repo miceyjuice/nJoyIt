@@ -10,8 +10,8 @@ using nJoyIt.Data;
 namespace nJoyIt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211114174441_addBookAndReviewTablesToDatabase")]
-    partial class addBookAndReviewTablesToDatabase
+    [Migration("20211116121025_updateBookDescriptionProp")]
+    partial class updateBookDescriptionProp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,6 +31,15 @@ namespace nJoyIt.Migrations
                     b.Property<string>("Author")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BookImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(800)
+                        .HasColumnType("nvarchar(800)");
 
                     b.Property<string>("Genre")
                         .IsRequired()

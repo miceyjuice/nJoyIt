@@ -24,7 +24,15 @@ namespace nJoyIt.Models
         [Required]
         [DisplayName("Publication year")]
         public uint PublicationYear { get; set; }
+        
+        [Required]
+        [StringLength(800)]
+        public string Description { get; set; }
 
         public IEnumerable<Review> Reviews { get; set; }
+
+        [Required]
+        [DisplayName("Book image URL")]
+        public string BookImageUrl { get; set; }
     }
 }

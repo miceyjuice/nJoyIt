@@ -17,26 +17,31 @@
         {
             <div class="col-12">
                 <ul class="books-list">
-                    @foreach (var item in Model)
+                    @foreach (var book in Model)
                     {
                         <li class="book">
-                            <a asp-action="Info" asp-route-id="@item.Id">
-                                <div>
+                            <a asp-action="Info" asp-route-id="@book.Id">
+                                <div class="d-flex book-wrapper">
                                     <div>
-                                        <span class="book-label">Title</span>
-                                        <span class="book-info">@item.Title</span>
+                                        <img src="@book.BookImageUrl" alt="@book.Author - @book.Title" />
                                     </div>
                                     <div>
-                                        <span class="book-label">Author</span>
-                                        <span class="book-info">@item.Author</span>
-                                    </div>
-                                    <div>
-                                        <span class="book-label">Genre</span>
-                                        <span class="book-info">@item.Genre</span>
-                                    </div>
-                                    <div>
-                                        <span class="book-label">Publication year</span>
-                                        <span class="book-info">@item.PublicationYear</span>
+                                        <div>
+                                            <span class="book-label">Title</span>
+                                            <span class="book-info">@book.Title</span>
+                                        </div>
+                                        <div>
+                                            <span class="book-label">Author</span>
+                                            <span class="book-info">@book.Author</span>
+                                        </div>
+                                        <div>
+                                            <span class="book-label">Genre</span>
+                                            <span class="book-info">@book.Genre</span>
+                                        </div>
+                                        <div>
+                                            <span class="book-label">Publication year</span>
+                                            <span class="book-info">@book.PublicationYear</span>
+                                        </div>
                                     </div>
                                 </div>
                             </a>
