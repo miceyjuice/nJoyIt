@@ -26,11 +26,41 @@
                 <span>@Model.Book.PublicationYear</span>
             </div>
             <div>
-                <span class="sub-title">Description</span>
+                <h4 class="sub-title">Description</h4>
                 <p>
                     @Model.Book.Description
                 </p>
             </div>
         </div>
+    </div>
+    <div class="d-flex mt-4 reviews-container row m-0">
+        <div class="d-flex justify-content-between align-content-center col-12 p-0 mb-3">
+            <h4 class="sub-title m-0">Reviews <small>(@Model.Review.Count())</small></h4>
+
+            <!--
+                TODO:
+                 - button ma przekierowywac na np: /book/info/1/review/add
+            -->
+
+            <a class="btn btn-primary text-white">Add your review</a>
+        </div>
+
+        @foreach (var review in Model.Review)
+        {
+            <div class="col-12 p-0">
+                <div class="d-flex">
+                    <h5>user0101</h5>
+                    <span class="ml-2">
+                        @review.ReviewDate.ToShortDateString()
+                    </span>
+                    <div class="ml-2">
+                        rating here
+                    </div>
+                </div>
+                <p>
+                    @review.ReviewContent
+                </p>
+            </div>
+        }
     </div>
 </div>
