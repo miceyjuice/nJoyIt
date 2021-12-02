@@ -17,21 +17,24 @@ namespace nJoyIt.Controllers
         }
         public IActionResult Index()
         {
-            IEnumerable<Review> objList = _db.Reviews;
-            return View(objList);
+            return RedirectToAction("Index", "Book");
         }
-        public IActionResult Create()
+
+        public IActionResult Add(int bookId)
         {
+            ViewBag.bookId = bookId;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Review obj)
+        public IActionResult Add(Review obj, int bookId)
         {
+            obj.ReviewDate = DateTime.Now;
+            obj.Book = _db.Books.Where(b => b.Id == bookId).ToList()[0];
             _db.Reviews.Add(obj);
             _db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Info", "Book", new { id = bookId });
         }
     }
 }
