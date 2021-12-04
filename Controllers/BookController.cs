@@ -21,16 +21,28 @@ namespace nJoyIt.Controllers
             IEnumerable<Book> objList = _db.Books;
             return View(objList);
         }
-        public IActionResult Create()
+        public IActionResult Save()
         {
-            return View();
+            return View("BookForm");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Book obj)
+        public IActionResult Save(Book book)
         {
-            _db.Books.Add(obj);
+            if(book.Id == 0) _db.Books.Add(book);
+            else
+            {
+                var bookInDb = _db.Books.Single(b => b.Id == book.Id);
+
+                bookInDb.Author = book.Author;
+                bookInDb.BookImageUrl = book.BookImageUrl;
+                bookInDb.Description = book.Description;
+                bookInDb.Genre = book.Genre;
+                bookInDb.Reviews = book.Reviews;
+                bookInDb.PublicationYear = book.PublicationYear;
+                bookInDb.Title = book.Title;
+            }
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -41,5 +53,14 @@ namespace nJoyIt.Controllers
             model.Review = _db.Reviews.Where(r => r.Book.Id == model.Book.Id).ToList();
             return View(model);
         }
+
+        public IActionResult Edit(int id)
+        {
+            var book = _db.Books.SingleOrDefault(b => b.Id == id);
+            if (book == null) return NotFound();
+
+            return View("BookForm", book);
+        }
     }
+
 }
