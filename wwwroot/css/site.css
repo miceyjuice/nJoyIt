@@ -1,6 +1,5 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
-
 a.navbar-brand {
     white-space: normal;
     text-align: center;
@@ -77,17 +76,21 @@ body {
     list-style-type: none;
     margin-top: 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    grid-template-columns: repeat(4, minmax(15rem, 1fr));
     grid-gap: 1rem;
     width: 100%;
     padding: 0;
 }
 
-    .books-list > li.book > a > div {
+
+    .books-list > li.book {
         background: #f5f5f5;
         padding: 1rem 1.5rem;
         border-radius: 0.5rem;
         transition: all 150ms ease-in;
+    }
+
+    .books-list > li.book > a > div {
         display: flex;
         flex-wrap: wrap;
         gap: 0.3rem;
@@ -157,7 +160,7 @@ body {
 }
 
     .book-wrapper img {
-        max-height: 20rem;
+        max-width: 100%;
         border-radius: 0.5rem;
     }
 
