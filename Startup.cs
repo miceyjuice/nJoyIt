@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using nJoyIt.Data;
+using nJoyIt.Repositories;
 
 namespace nJoyIt
 {
@@ -28,6 +29,13 @@ namespace nJoyIt
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
+            services.AddTransient<IBookRepository, EFBookRepository>();
+            services.AddTransient<IReviewRepository, EFReviewRepository>();
+#if DEBUG
+            /*services.AddTransient<IBookRepository, MockBookRepository>();*/
+#else
+            /*services.AddTransient<IBookRepository, EFBookRepository>();*/
+#endif
             services.AddControllersWithViews();
             services.AddRouting(options => options.LowercaseUrls = true);
         }

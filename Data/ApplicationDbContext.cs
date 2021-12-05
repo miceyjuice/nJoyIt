@@ -7,11 +7,11 @@ using nJoyIt.Models;
 
 namespace nJoyIt.Data
 {
-    public class ApplicationDbContext: DbContext
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            
+
         }
 
         public DbSet<Book> Books { get; set; }

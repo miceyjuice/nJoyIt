@@ -5,20 +5,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using nJoyIt.Data;
 using nJoyIt.Models;
+using nJoyIt.Repositories;
 using nJoyIt.ViewModels;
 
 namespace nJoyIt.Controllers
 {
     public class BookController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public BookController(ApplicationDbContext db)
+        private readonly IBookRepository _bookRepository;
+        public readonly IReviewRepository _reviewRepository;
+        public BookController(IBookRepository bookRepository, IReviewRepository reviewRepository)
         {
-            _db = db;
+            _bookRepository = bookRepository;
+            _reviewRepository = reviewRepository;
         }
         public IActionResult Index()
         {
-            IEnumerable<Book> objList = _db.Books;
+            IEnumerable<Book> objList = _bookRepository.GetAllBooks();
             return View(objList);
         }
         public IActionResult Save()
@@ -31,35 +34,22 @@ namespace nJoyIt.Controllers
         public IActionResult Save(Book book)
         {
             if (!ModelState.IsValid) return View("BookForm", book);
+            _bookRepository.AddBook(book);
 
-            if(book.Id == 0) _db.Books.Add(book);
-            else
-            {
-                var bookInDb = _db.Books.Single(b => b.Id == book.Id);
-
-                bookInDb.Author = book.Author;
-                bookInDb.BookImageUrl = book.BookImageUrl;
-                bookInDb.Description = book.Description;
-                bookInDb.Genre = book.Genre;
-                bookInDb.Reviews = book.Reviews;
-                bookInDb.PublicationYear = book.PublicationYear;
-                bookInDb.Title = book.Title;
-            }
-
-            _db.SaveChanges();
             return RedirectToAction("Index");
         }
         public IActionResult Info(int id)
         {
             BookDetailsViewModel model = new BookDetailsViewModel();
-            model.Book = _db.Books.Where(b => b.Id == id).ToList()[0];
-            model.Review = _db.Reviews.Where(r => r.Book.Id == model.Book.Id).ToList();
+            model.Book = _bookRepository.GetBookById(id);
+            model.Review = _reviewRepository.GetReviewsByBookId(id).ToList();
+
             return View(model);
         }
 
         public IActionResult Edit(int id)
         {
-            var book = _db.Books.SingleOrDefault(b => b.Id == id);
+            var book = _bookRepository.GetBookById(id);
             if (book == null) return NotFound();
 
             return View("BookForm", book);

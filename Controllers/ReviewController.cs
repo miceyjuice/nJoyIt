@@ -5,15 +5,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using nJoyIt.Data;
 using nJoyIt.Models;
+using nJoyIt.Repositories;
 
 namespace nJoyIt.Controllers
 {
     public class ReviewController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public ReviewController(ApplicationDbContext db)
+        private readonly IReviewRepository _reviewRepository;
+        private readonly IBookRepository _bookRepository;
+        public ReviewController(IReviewRepository reviewRepository, IBookRepository bookRepository)
         {
-            _db = db;
+            _reviewRepository = reviewRepository;
+            _bookRepository = bookRepository;
         }
         public IActionResult Index()
         {
@@ -28,12 +31,12 @@ namespace nJoyIt.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Add(Review obj, int bookId)
+        public IActionResult Add(Review review, int bookId)
         {
-            obj.ReviewDate = DateTime.Now;
-            obj.Book = _db.Books.Where(b => b.Id == bookId).ToList()[0];
-            _db.Reviews.Add(obj);
-            _db.SaveChanges();
+            review.ReviewDate = DateTime.Now;
+            review.Book = _bookRepository.GetBookById(bookId);
+            _reviewRepository.AddReview(review);
+            
             return RedirectToAction("Info", "Book", new { id = bookId });
         }
     }
