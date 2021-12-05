@@ -14,7 +14,7 @@ namespace nJoyIt.Models
 
         [Required(ErrorMessage = "This field is required!")]
         [DisplayName("Review")]
-        [StringLength(255, ErrorMessage = "Your review is too long!")]
+        [MinLength(10, ErrorMessage = "Your review is too short!"), MaxLength(300, ErrorMessage = "Your review is too long!")]
         public string ReviewContent { get; set; }
 
         [Required(ErrorMessage = "This field is required!")]
