@@ -171,3 +171,8 @@ h4{
 .sub-title + a {
     line-height: 1.8
 }
+
+/* VALIDATION STYLES */
+.input-validation-error {
+    box-shadow: 0 0 0 1px #dc143c;
+}
