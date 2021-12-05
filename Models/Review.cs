@@ -12,15 +12,16 @@ namespace nJoyIt.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "This field is required!")]
         [DisplayName("Review")]
-        [StringLength(255)]
+        [StringLength(255, ErrorMessage = "Your review is too long!")]
         public string ReviewContent { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "This field is required!")]
         public Book Book { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "This field is required!")]
+        [Range(1, 5)]
         public int Rating { get; set; }
 
         [Required]
