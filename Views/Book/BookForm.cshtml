@@ -1,10 +1,12 @@
-﻿@model nJoyIt.Models.Book
+﻿@using Microsoft.CodeAnalysis
+@using System.Web.Optimization
+@model nJoyIt.Models.Book
 
 @{
     ViewData["Title"] = "Add book";
 }
 
-<form method="post" asp-action="Save">
+<form method="post" asp-action="Save" asp-antiforgery="true">
     <div class="p-3">
         <div class="form-group row">
             <h2 class="text-black-50 pl-3">Add book</h2>
@@ -15,35 +17,53 @@
                     <div class="col-12">
                         <label asp-for="Title"></label>
                         <input type="text" asp-for="Title" class="form-control" />
+                        <div>
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
                     </div>
                     <div class="col-12 mt-3">
                         <label asp-for="Author"></label>
                         <input type="text" asp-for="Author" class="form-control" />
+                        <div>
+                            <span asp-validation-for="Author" class="text-danger"></span>
+                        </div>
                     </div>
                     <div class="col-12 mt-3">
                         <label asp-for="Genre"></label>
                         <input type="text" asp-for="Genre" class="form-control" />
+                        <div>
+                            <span asp-validation-for="Genre" class="text-danger"></span>
+                        </div>
                     </div>
                     <div class="col-12 mt-3">
                         <label asp-for="PublicationYear"></label>
                         <input type="text" asp-for="PublicationYear" class="form-control" />
+                        <div>
+                            <span asp-validation-for="PublicationYear" class="text-danger"></span>
+                        </div>
                     </div>
                     <div class="col-12 mt-3">
                         <label asp-for="BookImageUrl"></label>
                         <input type="text" asp-for="BookImageUrl" class="form-control" asp />
+                        <div>
+                            <span asp-validation-for="BookImageUrl" class="text-danger"></span>
+                        </div>
                     </div>
                     <div class="col-12 mt-3">
                         <label asp-for="Description"></label>
                         <textarea asp-for="Description" class="form-control form-book-description"></textarea>
+                        <div>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
                     </div>
-                    
+
                     @* HIDDEN FIELDS *@
                     <input asp-for="Id" hidden />
                 </div>
                 <div class="form-group row mt-3">
                     <div class="row col-12">
                         <div class="col-3">
-                            <input type="submit" value="Save" class="btn btn-info w-100" />
+                            <button type="submit" class="btn btn-info w-100">Save</button>
                         </div>
                         <div class="col-3">
                             <a class="btn btn-outline-primary w-100" asp-action="Index">Go back</a>
@@ -55,3 +75,7 @@
     </div>
 </form>
 
+@section Scripts
+{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

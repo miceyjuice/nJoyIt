@@ -30,6 +30,8 @@ namespace nJoyIt.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Save(Book book)
         {
+            if (!ModelState.IsValid) return View("BookForm", book);
+
             if(book.Id == 0) _db.Books.Add(book);
             else
             {
@@ -43,6 +45,7 @@ namespace nJoyIt.Controllers
                 bookInDb.PublicationYear = book.PublicationYear;
                 bookInDb.Title = book.Title;
             }
+
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
