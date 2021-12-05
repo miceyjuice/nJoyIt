@@ -16,6 +16,9 @@
                     <div class="col-12">
                         <label asp-for="ReviewContent"></label>
                         <textarea asp-for="ReviewContent" class="form-control form-book-description"></textarea>
+                        <div>
+                            <span asp-validation-for="ReviewContent" class="text-danger"></span>
+                        </div>
                     </div>
                     <div class="col-12 mt-3">
                         <label asp-for="Rating"></label>
@@ -42,3 +45,8 @@
         </div>
     </div>
 </form>
+
+@section Scripts
+{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
