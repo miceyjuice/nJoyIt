@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using nJoyIt.Data;
 using nJoyIt.Repositories;
@@ -26,11 +27,19 @@ namespace nJoyIt
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<AppIdentityDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            );
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>()
+                .AddDefaultTokenProviders();
+
             services.AddTransient<IBookRepository, EFBookRepository>();
             services.AddTransient<IReviewRepository, EFReviewRepository>();
+            services.AddSession();
 #if DEBUG
             /*services.AddTransient<IBookRepository, MockBookRepository>();*/
 #else
@@ -53,12 +62,13 @@ namespace nJoyIt
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
@@ -66,6 +76,7 @@ namespace nJoyIt
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            IdentitySeedData.EnsurePopulated(app);
         }
     }
 }

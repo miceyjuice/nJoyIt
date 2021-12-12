@@ -62,6 +62,12 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
+    background-color: #f3f3f3;
+    font-family: 'Poppins', sans-serif;
+}
+
+p {
+    color: #555;
 }
 
 .footer {
@@ -90,26 +96,26 @@ body {
         transition: all 150ms ease-in;
     }
 
-    .books-list > li.book > a > div {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.3rem;
-    }
+        .books-list > li.book > a > div {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+        }
 
-    .books-list > li.book a > div > div > div {
-        display: flex;
-        flex-direction: column;
-        flex-basis: 100%;
-    }
+        .books-list > li.book a > div > div > div {
+            display: flex;
+            flex-direction: column;
+            flex-basis: 100%;
+        }
 
-    .books-list > li.book a:hover {
-        text-decoration: none;
-    }
+        .books-list > li.book a:hover {
+            text-decoration: none;
+        }
 
-    .books-list > li.book .book-info {
-        font-weight: 600;
-        color: #222;
-    }
+        .books-list > li.book .book-info {
+            font-weight: 600;
+            color: #222;
+        }
 
     .books-list .book-label {
         font-size: 10px;
@@ -131,9 +137,11 @@ body {
 
 .sub-title {
     display: block;
-    font-weight: 700;
-    font-size: 1.25rem;
+    font-weight: 500;
+    font-size: 1.2rem;
     margin: 1rem 0 0.3rem 0;
+    line-height: 2.5;
+    color: #444;
 }
 
 .book-box-img {
@@ -164,15 +172,119 @@ body {
         border-radius: 0.5rem;
     }
 
-h4{
+h4 {
     line-height: 1.8;
 }
 
 .sub-title + a {
-    line-height: 1.8
+    line-height: 2;
+    padding: 0.2rem 1rem;
+    height: fit-content;
+    background-color: #555;
+    border: 1px solid #888;
+    color: #ddd;
 }
 
 /* VALIDATION STYLES */
 .input-validation-error {
     box-shadow: 0 0 0 1px #dc143c;
 }
+
+.form-login-container {
+    max-width: 30%;
+    margin-inline: auto;
+}
+
+.reviews-container > .reviews-top-bar {
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 1rem;
+    align-items: center;
+}
+
+.reviews-list {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 1rem 5rem 0 5rem;
+}
+
+.review {
+    display: flex;
+    gap: 1rem;
+}
+
+    .review p > span.text-bold {
+        font-weight: 500;
+        color: #555;
+    }
+
+.review-info {
+    flex-grow: 1;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0.4rem;
+    padding: 1rem 1.5rem;
+}
+
+.review-header > div {
+    flex-grow: 1;
+}
+
+.review-header > p {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #777;
+}
+
+.review-rating {
+    line-height: 1.31;
+}
+
+    .review-rating > img {
+        max-height: 1rem;
+    }
+
+.review-avatar-box {
+    position: relative;
+}
+.review:first-child .review-avatar-box::before,
+.review:not(:last-child) .review-avatar-box::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 1px;
+    background-color: #ddd;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+}
+
+.review:first-child .review-avatar-box::before {
+    top: -2rem;
+}
+
+.review-avatar-box > img {
+    border: 3px solid #fff;
+    border-radius: 100%;
+    width: 3rem;
+    box-shadow: 0 3px 5px #ddd;
+}
+
+.review-date {
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+.review-content {
+    margin-top: 0.8rem;
+    background-color: #f8f8f8;
+    padding: 0.8rem 1.2rem;
+    border-radius: 0.3rem;
+}
+
+    .review-content > p {
+        font-size: 0.9rem;
+        color: #888;
+        font-weight: 300;
+    }
