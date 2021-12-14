@@ -9,6 +9,7 @@ namespace nJoyIt.Repositories
     public interface IBookRepository
     {
         void AddBook(Book book);
+        void DeleteBook(int bookId);
         IQueryable<Book> GetAllBooks();
         Book GetBookById(int bookId);
     }

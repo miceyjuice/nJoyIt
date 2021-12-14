@@ -32,6 +32,13 @@ namespace nJoyIt.Repositories
             _db.SaveChanges();
         }
 
+        public void DeleteBook(int bookId)
+        {
+            var bookToDelete = _db.Books.SingleOrDefault(b => b.Id == bookId);
+            if(bookToDelete != null) _db.Books.Remove(bookToDelete);
+            return;
+        }
+
         public IQueryable<Book> GetAllBooks() 
             => _db.Books;
 
