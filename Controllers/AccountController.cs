@@ -25,6 +25,7 @@ namespace nJoyIt.Controllers
         [HttpGet]
         public IActionResult Login(string returnUrl)
         {
+            if (_signInManager.IsSignedIn(User)) return RedirectToAction("Index", "Book");
             return View(new Login
             {
                 ReturnUrl = returnUrl
@@ -37,19 +38,69 @@ namespace nJoyIt.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser user = await _userManager.FindByNameAsync(loginModel.Name);
+                var user = await _userManager.FindByNameAsync(loginModel.Name);
+
                 if (user != null)
                 {
-                    await _signInManager.SignOutAsync();
+                    /*await _signInManager.SignOutAsync();
                     if ((await _signInManager.PasswordSignInAsync(user, loginModel.Password, false, false)).Succeeded)
                     {
                         Console.WriteLine("Successfully logged in!");
+                        return Redirect(loginModel.ReturnUrl ?? "/Admin/Index");
+                    }*/
+
+                    var signInResult = await _signInManager.PasswordSignInAsync(loginModel.Name, loginModel.Password, false, false);
+
+                    if (signInResult.Succeeded)
+                    {
                         return Redirect(loginModel.ReturnUrl ?? "/Admin/Index");
                     }
                 }
             }
             ModelState.AddModelError("", "Wrong username or password!");
             return View(loginModel);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Register(string returnUrl)
+        {
+            return View(new Login
+            {
+                ReturnUrl = returnUrl
+            });
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(Login loginModel)
+        {
+            var user = new IdentityUser
+            {
+                UserName = loginModel.Name,
+                Email = "",
+            };
+
+            var result = await _userManager.CreateAsync(user, loginModel.Password);
+
+            if (result.Succeeded)
+            {
+                var signInResult = await _signInManager.PasswordSignInAsync(user, loginModel.Password, false, false);
+
+                if (signInResult.Succeeded)
+                {
+                    return RedirectToAction("Index", "Book");
+                }
+            }
+
+            return View();
+        }
+
+        public async Task<IActionResult> LogOut(string returnUrl = "/")
+        {
+            await _signInManager.SignOutAsync();
+            return Redirect(returnUrl);
         }
     }
 }
