@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using nJoyIt.Data;
 using nJoyIt.Models;
 using nJoyIt.Repositories;
@@ -23,12 +24,14 @@ namespace nJoyIt.Controllers
             return RedirectToAction("Index", "Book");
         }
 
+        [Authorize]
         public IActionResult Add(int bookId)
         {
             ViewBag.bookId = bookId;
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Add(Review review, int bookId)
