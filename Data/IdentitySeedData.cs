@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using nJoyIt.Models;
 
 namespace nJoyIt.Data
 {
@@ -15,7 +16,7 @@ namespace nJoyIt.Data
 
         public static async void EnsurePopulated(IApplicationBuilder app)
         {
-            using var scope = app.ApplicationServices.CreateScope();
+           /* using var scope = app.ApplicationServices.CreateScope();
             var userManager = (UserManager<IdentityUser>)scope
                 .ServiceProvider.GetService(typeof(UserManager<IdentityUser>));
             IdentityUser user = await userManager.FindByIdAsync(adminUser);
@@ -23,7 +24,7 @@ namespace nJoyIt.Data
             {
                 user = new IdentityUser(adminUser);
                 await userManager.CreateAsync(user, adminPassword);
-            }
+            }*/
         }
     }
 }

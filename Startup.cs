@@ -8,9 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using nJoyIt.Data;
+using nJoyIt.Models;
 using nJoyIt.Repositories;
 
 namespace nJoyIt
@@ -33,13 +35,19 @@ namespace nJoyIt
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
+            services.AddMemoryCache();
+            services.AddSession();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            });
 
             services.AddTransient<IBookRepository, EFBookRepository>();
             services.AddTransient<IReviewRepository, EFReviewRepository>();
-            services.AddSession();
+            services.AddTransient<IUserRepository, EFUserRepository>();
 #if DEBUG
             /*services.AddTransient<IBookRepository, MockBookRepository>();*/
 #else
@@ -67,8 +75,8 @@ namespace nJoyIt
             app.UseStaticFiles();
             app.UseRouting();
             app.UseSession();
+            app.UseAuthentication(); 
             app.UseAuthorization();
-            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

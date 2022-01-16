@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using nJoyIt.Data;
 using nJoyIt.Models;
 using nJoyIt.Repositories;
@@ -13,7 +14,7 @@ namespace nJoyIt.Controllers
     public class BookController : Controller
     {
         private readonly IBookRepository _bookRepository;
-        public readonly IReviewRepository _reviewRepository;
+        private readonly IReviewRepository _reviewRepository;
         public BookController(IBookRepository bookRepository, IReviewRepository reviewRepository)
         {
             _bookRepository = bookRepository;
@@ -24,13 +25,14 @@ namespace nJoyIt.Controllers
             IEnumerable<Book> objList = _bookRepository.GetAllBooks();
             return View(objList);
         }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult Save()
         {
             return View("BookForm");
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Save(Book book)
         {
             if (!ModelState.IsValid) return View("BookForm", book);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using nJoyIt.Data;
 using nJoyIt.Models;
 
@@ -18,7 +19,7 @@ namespace nJoyIt.Repositories
 
         public IQueryable<Review> GetReviewsByBookId(int bookId)
         {
-            return _db.Reviews.Where(r => r.Book.Id == bookId);
+            return _db.Reviews.Include("User").Where(r => r.Book.Id == bookId);
         }
 
         public void AddReview(Review review)

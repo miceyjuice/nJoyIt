@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using nJoyIt.Models;
@@ -12,10 +14,10 @@ namespace nJoyIt.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -33,7 +35,6 @@ namespace nJoyIt.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(Login loginModel)
         {
             if (ModelState.IsValid)
@@ -42,13 +43,6 @@ namespace nJoyIt.Controllers
 
                 if (user != null)
                 {
-                    /*await _signInManager.SignOutAsync();
-                    if ((await _signInManager.PasswordSignInAsync(user, loginModel.Password, false, false)).Succeeded)
-                    {
-                        Console.WriteLine("Successfully logged in!");
-                        return Redirect(loginModel.ReturnUrl ?? "/Admin/Index");
-                    }*/
-
                     var signInResult = await _signInManager.PasswordSignInAsync(loginModel.Name, loginModel.Password, false, false);
 
                     if (signInResult.Succeeded)
@@ -73,10 +67,9 @@ namespace nJoyIt.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(Login loginModel)
         {
-            var user = new IdentityUser
+            var user = new ApplicationUser
             {
                 UserName = loginModel.Name,
                 Email = "",
@@ -97,10 +90,12 @@ namespace nJoyIt.Controllers
             return View();
         }
 
-        public async Task<IActionResult> LogOut(string returnUrl = "/")
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> LogOut(string redirectUrl = "/")
         {
             await _signInManager.SignOutAsync();
-            return Redirect(returnUrl);
+            return Redirect(redirectUrl);
         }
     }
 }
