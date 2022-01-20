@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> _userManager
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <li class="nav-item align-self-center d-flex">
+        <span class="mr-3">@_userManager.GetUserName(User)</span>
+        <form asp-controller="Account" asp-action="LogOut" class="align-self-center d-flex align-items-center">
+            <button type="submit" class="btn-logout mr-2">
+                Logout
+            </button>
+            <img src="~/images/logout.png" alt="Login" class="acc-icon" />
+        </form>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Account" asp-action="Login">
+            <img src="~/images/user.png" alt="Login" class="acc-icon" />
+        </a>
+    </li>
+}
