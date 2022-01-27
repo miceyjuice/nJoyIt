@@ -4,47 +4,47 @@
     ViewData["Title"] = "New review";
 }
 
-
-<form method="post" asp-action="Add">
-    <div class="p-3">
-        <div class="form-group row">
-            <h2 class="text-black-50 pl-3">Add your review</h2>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="form-group row">
-                    <div class="col-12">
-                        <label asp-for="ReviewContent"></label>
-                        <textarea asp-for="ReviewContent" class="form-control form-book-description"></textarea>
-                        <div>
-                            <span asp-validation-for="ReviewContent" class="text-danger"></span>
+<div class="container w-50">
+    <form method="post" asp-action="Add">
+        <div class="p-3">
+            <div class="form-group row">
+                <h2 class="mb-3">Add your review</h2>
+            </div>
+            <div class="row">
+                <div class="col-12 p-0">
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <textarea asp-for="ReviewContent" class="form-control form-book-review" placeholder="Type your review here..."></textarea>
+                            <div>
+                                <span asp-validation-for="ReviewContent" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label asp-for="Rating"></label>
+                            <select class="form-control w-25 review-rating" asp-for="Rating">
+                                <option value="1">1 - Terrible</option>
+                                <option value="2">2 - Bad</option>
+                                <option value="3">3 - Decent</option>
+                                <option value="4">4 - Worth reading</option>
+                                <option value="5">5 - Excellent</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="col-12 mt-3">
-                        <label asp-for="Rating"></label>
-                        <select class="form-control w-25" asp-for="Rating">
-                            <option value="1">1 - Terrible</option>
-                            <option value="2">2 - Bad</option>
-                            <option value="3">3 - Decent</option>
-                            <option value="4">4 - Worth reading</option>
-                            <option value="5">5 - Excellent</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row mt-3">
-                    <div class="row col-12">
-                        <div class="col-3">
-                            <input type="submit" value="Add" class="btn btn-info w-100" asp-route-bookId="@ViewBag.bookId" />
-                        </div>
-                        <div class="col-3">
-                            <a class="btn btn-outline-primary w-100" asp-controller="Book" asp-action="Info" asp-route-id="@ViewBag.bookId">Go back</a>
+                    <div class="form-group row mt-3 pt-3">
+                        <div class="row col-12">
+                            <div class="col-3">
+                                <input type="submit" value="Add" class="btn btn-info w-100" asp-route-bookId="@ViewBag.bookId" />
+                            </div>
+                            <div class="col-3">
+                                <a class="btn btn-outline-primary w-100" asp-controller="Book" asp-action="Info" asp-route-id="@ViewBag.bookId">Go back</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 
 @section Scripts
 {
