@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using nJoyIt.Models;
 using nJoyIt.Repositories;
 
@@ -21,21 +22,21 @@ namespace nJoyIt.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public ActionResult<Book> Get(int id)
+        public string Get(int id)
         {
-            var book = _bookRepository.GetBookById(id);
+            var book = _bookRepository.FindById(id);
             if (book == null)
             {
-                return BadRequest();
+                return "";
             }
-            return book;
+            return JsonConvert.SerializeObject(book);
         }
 
         [HttpDelete]
         [Route("{id}")]
         public ActionResult<Book> Delete(int id)
         {
-            _bookRepository.DeleteBook(id);
+            _bookRepository.Delete(id);
             return Ok();
         }
     }
