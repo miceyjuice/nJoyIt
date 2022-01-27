@@ -32,28 +32,12 @@ namespace nJoyIt.UnitTests.Controllers
                 Genre = "thriller",
                 PublicationYear = 1998,
             };
-
+            
             // Act
             bookController.Save(book);
 
             // Assert
             bookRepository.Received().Add(Arg.Is<Book>(x => x == book));
-        }
-        [Test]
-        public void ShouldNotSaveInvalidBook()
-        {
-            IBookRepository bookRepository = Substitute.For<IBookRepository>();
-            IReviewRepository reviewRepository = Substitute.For<IReviewRepository>();
-            BookController bookController = new BookController(bookRepository, reviewRepository);
-
-            Book book = new Book
-            {
-                Id = 1,
-                Title = "Something"
-            };
-
-            bookController.Save(book);
-            bookRepository.DidNotReceive().Add(Arg.Is<Book>(x => x == book));
         }
     }
 }
