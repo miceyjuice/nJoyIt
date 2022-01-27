@@ -1,4 +1,7 @@
-﻿@model nJoyIt.ViewModels.BookDetailsViewModel
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<ApplicationUser> userManager
+@model nJoyIt.ViewModels.BookDetailsViewModel
 
 @{
     ViewData["Title"] = Model.Book.Title;
@@ -14,15 +17,15 @@
                 @Model.Book.Title
             </h1>
             <div>
-                <span>Author</span>
+                <span class="text-muted">Author</span>
                 <span>@Model.Book.Author</span>
             </div>
             <div>
-                <span>Genre</span>
+                <span class="text-muted">Genre</span>
                 <span>@Model.Book.Genre</span>
             </div>
             <div>
-                <span>Publication year</span>
+                <span class="text-muted">Publication year</span>
                 <span>@Model.Book.PublicationYear</span>
             </div>
             <div>
@@ -36,23 +39,22 @@
     <div class="d-flex mt-4 reviews-container row m-0">
         <div class="reviews-top-bar d-flex justify-content-between align-content-center col-12 mb-3">
             <h4 class="sub-title m-0">Reviews</h4>
-            <a class="btn btn-primary" asp-controller="Review" asp-action="Add" asp-route-bookId="@Model.Book.Id">Add your review</a>
         </div>
         <div class="reviews-list">
-            @foreach (var review in Model.Review)
+            @foreach (var review in Model.Review.Reverse())
             {
                 <div class="col-12 p-0 review">
                     <div class="review-avatar-box">
                         <img src="https://source.unsplash.com/random/200x200?sig=@review.Id" alt="User avatar" />
                     </div>
                     <div class="review-info">
-                        <div class="d-flex review-header">
+                        <div class="d-flex align-items-center review-header">
                             <p class="m-0 text-bold">@review.User.UserName</p>
-                            <div class="ml-2 review-rating">
+                            <div class="d-flex align-items-center ml-2 review-rating">
                                 <img src="~/images/rating-stars-@(review.Rating).svg" alt="Alternate Text" />
                             </div>
                             <span class="review-date ml-2">
-                                @review.ReviewDate.ToLongDateString()
+                                @review.ReviewDate.ToUniversalTime()
                             </span>
                         </div>
                         <div class="review-content">
@@ -60,9 +62,19 @@
                                 @review.ReviewContent
                             </p>
                         </div>
+                        @if (@userManager.GetUserName(User) == @review.User.UserName || User.IsInRole("Admin"))
+                        {
+                            <a class="btn btn-delete mt-3" asp-controller="Review" asp-action="Delete" asp-route-reviewId="@review.Id" asp-route-bookId="@Model.Book.Id">
+                                Delete
+                            </a>
+                        }
                     </div>
                 </div>
             }
+
+        </div>
+        <div class="d-flex align-items-center justify-content-center w-100 mt-4">
+            <a class="btn btn-add" asp-controller="Review" asp-action="Add" asp-route-bookId="@Model.Book.Id">Add review</a>
         </div>
     </div>
 </div>

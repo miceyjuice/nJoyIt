@@ -6,7 +6,8 @@
     ViewData["Title"] = "Add book";
 }
 
-<form method="post" asp-action="Save">
+<div class="container w-50">
+    <form method="post" asp-action="Save">
     <div class="p-3">
         <div class="form-group row">
             <h2 class="text-black-50 pl-3">Add book</h2>
@@ -16,42 +17,42 @@
                 <div class="form-group row">
                     <div class="col-12">
                         <label asp-for="Title"></label>
-                        <input type="text" asp-for="Title" class="form-control" />
+                        <input type="text" asp-for="Title" class="form-control custom-text-input" />
                         <div>
                             <span asp-validation-for="Title" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-12 mt-3">
                         <label asp-for="Author"></label>
-                        <input type="text" asp-for="Author" class="form-control" />
+                        <input type="text" asp-for="Author" class="form-control custom-text-input" />
                         <div>
                             <span asp-validation-for="Author" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-12 mt-3">
                         <label asp-for="Genre"></label>
-                        <input type="text" asp-for="Genre" class="form-control" />
+                        <input type="text" asp-for="Genre" class="form-control custom-text-input" />
                         <div>
                             <span asp-validation-for="Genre" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-12 mt-3">
                         <label asp-for="PublicationYear"></label>
-                        <input type="text" asp-for="PublicationYear" class="form-control" />
+                        <input type="text" asp-for="PublicationYear" class="form-control custom-text-input" />
                         <div>
                             <span asp-validation-for="PublicationYear" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-12 mt-3">
                         <label asp-for="BookImageUrl"></label>
-                        <input type="text" asp-for="BookImageUrl" class="form-control" asp />
+                        <input type="text" asp-for="BookImageUrl" class="form-control custom-text-input" asp />
                         <div>
                             <span asp-validation-for="BookImageUrl" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-12 mt-3">
                         <label asp-for="Description"></label>
-                        <textarea asp-for="Description" class="form-control form-book-description"></textarea>
+                        <textarea asp-for="Description" class="form-control form-book-review"></textarea>
                         <div>
                             <span asp-validation-for="Description" class="text-danger"></span>
                         </div>
@@ -71,6 +72,7 @@
         </div>
     </div>
 </form>
+</div>
 
 @section Scripts
 {
