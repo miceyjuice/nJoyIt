@@ -185,8 +185,7 @@ h2 {
     font-weight: 500;
     font-size: 1.2rem;
     margin: 1rem 0 0.3rem 0;
-    line-height: 2.5;
-    color: #444;
+    color: #ddd;
 }
 
 .book-box-img {
@@ -202,9 +201,14 @@ h2 {
         font-weight: 700;
     }
 
-.form-book-description {
+.form-book-review,
+.form-book-review:focus {
     min-height: 10rem;
     resize: vertical;
+    height: 160px;
+    background-color: rgba(200, 200, 200, 0.08);
+    border: 1px solid #0b0e24;
+    color: #eee;
 }
 
 .book-wrapper {
@@ -244,8 +248,8 @@ h4 {
 }
 
 .reviews-container > .reviews-top-bar {
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 1rem;
+    border-bottom: 2px solid #111;
+    padding-bottom: 0.5rem;
     align-items: center;
 }
 
@@ -269,8 +273,8 @@ h4 {
 
 .review-info {
     flex-grow: 1;
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background-color: #111b40;
+    border: 1px solid #0a1026;
     border-radius: 0.4rem;
     padding: 1rem 1.5rem;
     width: 100%;
@@ -304,7 +308,7 @@ h4 {
     display: block;
     position: absolute;
     width: 1px;
-    background-color: #ddd;
+    background-color: #111;
     height: 100%;
     left: 50%;
     transform: translateX(-50%);
@@ -316,11 +320,13 @@ h4 {
 }
 
 .review-avatar-box > img {
-    border: 3px solid #fff;
+    border: 3px solid #111;
     border-radius: 100%;
-    width: 3rem;
-    height: 3rem;
-    box-shadow: 0 3px 5px #ddd;
+    min-width: 3rem;
+    max-width: 3rem;
+    min-height: 3rem;
+    max-height: 3rem;
+    box-shadow: 0 3px 5px #000;
 }
 
 .review-date {
@@ -330,14 +336,14 @@ h4 {
 
 .review-content {
     margin-top: 0.8rem;
-    background-color: #f8f8f8;
+    background-color: #0e1636;
     padding: 0.8rem 1.2rem;
     border-radius: 0.3rem;
 }
 
     .review-content > p {
         font-size: 0.9rem;
-        color: #888;
+        color: #ddd;
         font-weight: 300;
     }
 
@@ -452,4 +458,48 @@ p.banner-desc {
 
 .book .options a img {
     max-width: 100%;
+}
+
+
+a.btn-add {
+    background-color: #03040a;
+    padding: 0.5rem 1rem;
+    border: 1px solid #0a1026;
+}
+
+    a.btn-add:hover {
+        background-color: #060814;
+    }
+
+select.review-rating,
+select.review-rating:focus {
+    background-color: rgba(200, 200, 200, 0.08);
+    border: 1px solid #0b0e24;
+    color: #eee;
+}
+
+select.review-rating option {
+        background-color: #03040a;
+        color: #eee;
+    }
+
+a.btn-delete {
+    background-color: #780d1b;
+    box-shadow: 0 0.3rem 1.5rem -0.8rem #bf2a3d;
+    color: #fff;
+    line-height: 1.4;
+    font-size: 0.825rem;
+    transition: all 100ms ease-in;
+}
+
+    a.btn-delete:hover {
+        background-color: #870f1f;
+        box-shadow: 0 0.3rem 1.5rem -0.6rem #bf2a3d;
+    }
+
+.custom-text-input,
+.custom-text-input:focus {
+    background-color: rgba(200, 200, 200, 0.08);
+    border: 1px solid #0b0e24;
+    color: #eee;
 }
