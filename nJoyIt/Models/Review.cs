@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 
 namespace nJoyIt.Models
 {
@@ -19,6 +20,7 @@ namespace nJoyIt.Models
         [MinLength(10, ErrorMessage = "Your review is too short!"), MaxLength(300, ErrorMessage = "Your review is too long!")]
         public string ReviewContent { get; set; }
 
+        [JsonIgnore]
         [Required(ErrorMessage = "This field is required!")]
         public Book Book { get; set; }
 
