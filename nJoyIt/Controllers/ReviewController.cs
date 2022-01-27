@@ -29,6 +29,7 @@ namespace nJoyIt.Controllers
             return RedirectToAction("Index", "Book");
         }
         
+        [Authorize]
         public IActionResult Add(int bookId)
         {
             ViewBag.bookId = bookId;
@@ -43,10 +44,17 @@ namespace nJoyIt.Controllers
 
             review.ReviewDate = DateTime.Now;
             review.User = _userRepository.GetUserByUserName(User.Identity.Name);
-            review.Book = _bookRepository.GetBookById(bookId);
+            review.Book = _bookRepository.FindById(bookId);
 
-            _reviewRepository.AddReview(review);
+            _reviewRepository.Add(review);
             
+            return RedirectToAction("Info", "Book", new { id = bookId });
+        }
+        
+        [Authorize]
+        public IActionResult Delete(int reviewId, int bookId)
+        {
+            _reviewRepository.Delete(reviewId);
             return RedirectToAction("Info", "Book", new { id = bookId });
         }
     }

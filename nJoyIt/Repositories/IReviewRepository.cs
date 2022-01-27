@@ -6,9 +6,8 @@ using nJoyIt.Models;
 
 namespace nJoyIt.Repositories
 {
-    public interface IReviewRepository
+    public interface IReviewRepository: IRepository<Review>
     {
         IQueryable<Review> GetReviewsByBookId(int bookId);
-        void AddReview(Review review);
     }
 }

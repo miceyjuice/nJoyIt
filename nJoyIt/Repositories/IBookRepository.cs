@@ -6,11 +6,7 @@ using nJoyIt.Models;
 
 namespace nJoyIt.Repositories
 {
-    public interface IBookRepository
+    public interface IBookRepository : IRepository<Book>
     {
-        void AddBook(Book book);
-        void DeleteBook(int bookId);
-        IQueryable<Book> GetAllBooks();
-        Book GetBookById(int bookId);
     }
 }

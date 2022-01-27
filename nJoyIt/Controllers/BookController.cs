@@ -22,7 +22,7 @@ namespace nJoyIt.Controllers
         }
         public IActionResult Index()
         {
-            IEnumerable<Book> objList = _bookRepository.GetAllBooks();
+            IEnumerable<Book> objList = _bookRepository.FindAll();
             return View(objList);
         }
 
@@ -36,25 +36,33 @@ namespace nJoyIt.Controllers
         public IActionResult Save(Book book)
         {
             if (!ModelState.IsValid) return View("BookForm", book);
-            _bookRepository.AddBook(book);
+            _bookRepository.Add(book);
 
             return RedirectToAction("Index");
         }
         public IActionResult Info(int id)
         {
             BookDetailsViewModel model = new BookDetailsViewModel();
-            model.Book = _bookRepository.GetBookById(id);
+            model.Book = _bookRepository.FindById(id);
             model.Review = _reviewRepository.GetReviewsByBookId(id).ToList();
 
             return View(model);
         }
 
+        [Authorize]
         public IActionResult Edit(int id)
         {
-            var book = _bookRepository.GetBookById(id);
+            var book = _bookRepository.FindById(id);
             if (book == null) return NotFound();
 
             return View("BookForm", book);
+        }
+
+        [Authorize]
+        public IActionResult Delete(int id)
+        {
+            _bookRepository.Delete(id);
+            return Redirect("/");
         }
     }
 

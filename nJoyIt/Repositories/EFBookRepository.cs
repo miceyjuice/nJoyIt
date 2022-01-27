@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using nJoyIt.Data;
 using nJoyIt.Models;
 
 namespace nJoyIt.Repositories
 {
-    public class EFBookRepository : IRepository<Book>
+    public class EFBookRepository : IBookRepository
     {
         private readonly ApplicationDbContext _db;
         public EFBookRepository(ApplicationDbContext db)
@@ -35,14 +36,15 @@ namespace nJoyIt.Repositories
         public void Delete(int bookId)
         {
             var bookToDelete = _db.Books.SingleOrDefault(b => b.Id == bookId);
-            if(bookToDelete != null) _db.Books.Remove(bookToDelete);
-            return;
+            if(bookToDelete == null) return;
+            _db.Books.Remove(bookToDelete);
+            _db.SaveChanges();
         }
 
         public IQueryable<Book> FindAll() 
             => _db.Books;
 
         public Book FindById(int bookId) 
-            => _db.Books.SingleOrDefault(b => b.Id == bookId);
+            => _db.Books.Include(i => i.Reviews).ThenInclude(it => it.User).SingleOrDefault(b => b.Id == bookId);
     }
 }

@@ -8,7 +8,7 @@ using nJoyIt.Models;
 
 namespace nJoyIt.Repositories
 {
-    public class EFReviewRepository : IRepository<Review>
+    public class EFReviewRepository : IReviewRepository
     {
         private readonly ApplicationDbContext _db;
 
@@ -27,5 +27,16 @@ namespace nJoyIt.Repositories
             _db.Reviews.Add(review);
             _db.SaveChanges();
         }
+
+        public void Delete(int id)
+        {
+            var review = _db.Reviews.SingleOrDefault(review => review.Id == id);
+            _db.Remove(review);
+            _db.SaveChanges();
+        }
+
+        public IQueryable<Review> FindAll() => _db.Reviews;
+
+        public Review FindById(int id) => _db.Reviews.SingleOrDefault(review => review.Id == id);
     }
 }
