@@ -7,7 +7,7 @@ env:
   AZURE_WEBAPP_NAME: njoyit
   AZURE_WEBAPP_PACKAGE_PATH: ./publish
   AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.njoyit_ee4a }}
-  CONFIGURATION: Development
+  CONFIGURATION: Debug
   DOTNET_CORE_VERSION: 5.0.x
   WORKING_DIRECTORY: ./nJoyIt
 jobs:
