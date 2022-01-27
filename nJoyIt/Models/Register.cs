@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace nJoyIt.Models
 {
-    public class Login
+    public class Register
     {
         [Required(ErrorMessage = "Name is required!")]
         public string Name { get; set; }
@@ -15,6 +15,11 @@ namespace nJoyIt.Models
         [Required(ErrorMessage = "Password is required!")]
         [UIHint("password")]
         public string Password { get; set; }
+
+        [Required(ErrorMessage = "You have to confirm the password!")]
+        [Compare("Password", ErrorMessage = "Passwords do not match!")]
+        [DisplayName("Confirm password")]
+        public string ConfirmPassword { get; set; }
 
         public string ReturnUrl { get; set; } = "/";
 

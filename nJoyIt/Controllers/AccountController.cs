@@ -59,7 +59,7 @@ namespace nJoyIt.Controllers
         [HttpGet]
         public IActionResult Register(string returnUrl)
         {
-            return View(new Login
+            return View(new Register
             {
                 ReturnUrl = returnUrl
             });
@@ -67,19 +67,20 @@ namespace nJoyIt.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Register(Login loginModel)
+        public async Task<IActionResult> Register(Register registerModel)
         {
+            if (!ModelState.IsValid) return View("Register", registerModel);
             var user = new ApplicationUser
             {
-                UserName = loginModel.Name,
+                UserName = registerModel.Name,
                 Email = "",
             };
 
-            var result = await _userManager.CreateAsync(user, loginModel.Password);
+            var result = await _userManager.CreateAsync(user, registerModel.Password);
 
             if (result.Succeeded)
             {
-                var signInResult = await _signInManager.PasswordSignInAsync(user, loginModel.Password, false, false);
+                var signInResult = await _signInManager.PasswordSignInAsync(user, registerModel.Password, false, false);
 
                 if (signInResult.Succeeded)
                 {
