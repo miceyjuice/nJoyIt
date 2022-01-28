@@ -273,7 +273,7 @@ h4 {
 
 .review-info {
     flex-grow: 1;
-    background-color: #111b40;
+    background-color: #090f24;
     border: 1px solid #0a1026;
     border-radius: 0.4rem;
     padding: 1rem 1.5rem;
@@ -336,7 +336,7 @@ h4 {
 
 .review-content {
     margin-top: 0.8rem;
-    background-color: #0e1636;
+    background-color: #0a1129;
     padding: 0.8rem 1.2rem;
     border-radius: 0.3rem;
 }
@@ -379,10 +379,10 @@ button.btn-logout {
     }
 
     .banner::before {
-        background-image: url("../images/banner-the-witcher.jpg");
+        background-image: url("../images/banner-the-witcher.png");
         background-repeat: no-repeat;
         background-position: top;
-        background-size: 100%;
+        background-size: cover;
         z-index: -1;
     }
 
