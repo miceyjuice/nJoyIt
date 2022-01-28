@@ -7,11 +7,9 @@
 
   <ItemGroup>
     <Content Remove="Views\Account\Index.cshtml" />
-    <Content Remove="Views\Account\Register.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Account\Register.cshtml" />
     <None Include="Views\Account\Index.cshtml" />
   </ItemGroup>
 
