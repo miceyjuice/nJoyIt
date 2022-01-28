@@ -14,12 +14,15 @@
                 The books have been described as having a cult following in Poland and Central and Eastern European countries.
                 They have been translated into 37 languages and sold over 15 million copies worldwide as of December 2019.
             </p>
-            <div class="banner-btns">
-                <a class="btn btn-custom" asp-action="Info" asp-route-id="3">
-                    <img src="~/images/info.png" alt="Book info" class="acc-icon" />
-                    Info
-                </a>
-            </div>
+            @if (Model.SingleOrDefault(book => book.Title.StartsWith("The Witcher")) != null)
+            {
+                <div class="banner-btns">
+                    <a class="btn btn-custom" asp-action="Info" asp-route-id="3">
+                        <img src="~/images/info.png" alt="Book info" class="acc-icon" />
+                        Info
+                    </a>
+                </div>
+            }
         </div>
     </div>
 </div>
